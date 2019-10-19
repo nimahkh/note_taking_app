@@ -4,6 +4,7 @@ import CreateNote from "../CreateNote"
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import {StateProvider} from "../../statemanagement"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,6 +14,23 @@ const useStyles = makeStyles(theme => ({
     marginTop: 100
   }
 }));
+
+const initialState = {
+   notes: []
+ };
+
+ const reducer = (state, action) => {
+   switch (action.type) {
+     case 'newNote':
+       return {
+         ...state,
+         notes: action.notes
+       };
+
+     default:
+       return state;
+   }
+ };
 
 function MainComponent() {
   const classes = useStyles();
