@@ -17,11 +17,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Note(props){
+  const {item,id}=props;
   const classes = useStyles();
 
   return(
     <Paper className={classes.paper}>
-      xs=6
+      {id+1} - {item.title}({item.category})
       <Button variant="outlined" color="secondary" className={classes.button} onClick={()=> {LocalStorage.setNotes("some")}}>
         Delete
       </Button>
