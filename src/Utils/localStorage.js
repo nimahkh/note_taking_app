@@ -1,7 +1,7 @@
 const LocalStorage = {};
 
-LocalStorage.get = (item) => {
-  return localStorage.getItem(item)
+LocalStorage.getNotes = () => {
+  return localStorage.getItem("notes")
 }
 
 LocalStorage.set = (key, value) => {
