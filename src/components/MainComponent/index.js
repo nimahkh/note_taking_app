@@ -16,21 +16,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const initialState = {
-   notes: []
- };
+  notes: []
+};
 
- const reducer = (state, action) => {
-   switch (action.type) {
-     case 'newNote':
-       return {
-         ...state,
-         notes: action.notes
-       };
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'newNote':
+      return {
+        ...state,
+        notes: action.notes
+      };
 
-     default:
-       return state;
-   }
- };
+    default:
+      return state;
+  }
+};
 
 function MainComponent() {
   const classes = useStyles();
@@ -38,12 +38,14 @@ function MainComponent() {
   return (<React.Fragment>
     <Paper className={classes.root}>
       <Grid container="container" spacing={3}>
-        <Grid item="item" xs={6}>
-          <NotesList/>
-        </Grid>
-        <Grid item="item" xs={6}>
-          <CreateNote/>
-        </Grid>
+        <StateProvider initialState={initialState} reducer={reducer}>
+          <Grid item="item" xs={6}>
+            <NotesList/>
+          </Grid>
+          <Grid item="item" xs={6}>
+            <CreateNote/>
+          </Grid>
+        </StateProvider>
       </Grid>
     </Paper>
   </React.Fragment>)
