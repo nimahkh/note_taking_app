@@ -42,6 +42,14 @@ function Note(props) {
     })
   }
 
+  function showNote(){
+    dispatch({
+      type:'showMessage',
+      showModal: true,
+      show: id
+    })
+  }
+
   return (<Paper className={classes.paper}>
     {id + 1}
     - {item.title}({item.category})
@@ -50,6 +58,9 @@ function Note(props) {
     </Button>
     <Button variant="outlined" color="primary" className={classes.button} onClick={updateNote}>
       Update
+    </Button>
+    <Button variant="outlined" color="primary" className={classes.button} onClick={showNote}>
+      Show
     </Button>
   </Paper>)
 }
