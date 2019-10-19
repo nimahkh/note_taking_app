@@ -17,8 +17,11 @@ LocalStorage.rmNotes =() => {
 }
 
 LocalStorage.note =(id) => {
-  const List=JSON.parse(LocalStorage.getNotes());
-  return List[id];
+  if(LocalStorage.getNotes()!==null){
+    const List=JSON.parse(LocalStorage.getNotes());
+    return List[id];
+  }
+  return []
 }
 
 export default LocalStorage;
