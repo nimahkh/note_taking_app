@@ -26,8 +26,8 @@ function NotesList() {
   return (<React.Fragment>
     <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Notes </Typography>
     <div className={classes.margin}>
-      {notes.map(item=>(
-        <Note key={item} />
+      {notes.length > 0 && notes.map((item,index)=>(
+        <Note id={index} item={item} key={item} />
       ))}
     </div>
   </React.Fragment>)
