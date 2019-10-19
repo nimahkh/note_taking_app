@@ -34,13 +34,21 @@ function Note(props) {
     })
   }
 
+  function updateNote(){
+    dispatch({
+      type:'openModal',
+      modal: true,
+      edit: id
+    })
+  }
+
   return (<Paper className={classes.paper}>
     {id + 1}
     - {item.title}({item.category})
     <Button variant="outlined" color="secondary" className={classes.button} onClick={deleteNote}>
       Delete
     </Button>
-    <Button variant="outlined" color="primary" className={classes.button}>
+    <Button variant="outlined" color="primary" className={classes.button} onClick={updateNote}>
       Update
     </Button>
   </Paper>)

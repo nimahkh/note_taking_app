@@ -5,6 +5,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {StateProvider} from "../../statemanagement"
+import ModalBase from "../../Utils/Modal"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,7 +17,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const initialState = {
-  notes: []
+  notes: [],
+  modal:false,
+  edit:0
 };
 
 const reducer = (state, action) => {
@@ -25,6 +28,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         notes: action.notes
+      };
+    case 'openModal':
+      return {
+        ...state,
+        modal: action.modal,
+        edit: action.edit
       };
 
     default:
@@ -39,12 +48,15 @@ function MainComponent() {
     <Paper className={classes.root}>
       <Grid container="container" spacing={3}>
         <StateProvider initialState={initialState} reducer={reducer}>
-          <Grid item="item" xs={6}>
-            <NotesList/>
-          </Grid>
-          <Grid item="item" xs={6}>
-            <CreateNote/>
-          </Grid>
+          <React.Fragment>
+            <ModalBase/>
+            <Grid item="item" xs={6}>
+              <NotesList/>
+            </Grid>
+            <Grid item="item" xs={6}>
+              <CreateNote/>
+            </Grid>
+          </React.Fragment>
         </StateProvider>
       </Grid>
     </Paper>
