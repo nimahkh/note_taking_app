@@ -22,7 +22,7 @@ function NotesList() {
   const classes = useStyles();
 
   return (<React.Fragment>
-    <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Notes list</Typography>
+    <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Notes </Typography>
     <div className={classes.margin}>
       {[0,1,2,3,4].map(item=>(
         <Note key={item} />
