@@ -1,6 +1,7 @@
 import React from "react"
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -88,6 +89,8 @@ function CreateNote() {
   },[])
 
   return (<React.Fragment>
+    <Typography variant="h5" align="center" color="primary" gutterBottom="gutterBottom" noWrap="noWrap">Add a new Note</Typography>
+
     <TextField
       id="outlined-textarea"
       label="Title"

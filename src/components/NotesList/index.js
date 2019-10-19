@@ -75,6 +75,8 @@ function NotesList() {
   }, [notes])
 
   return (<React.Fragment>
+    <Typography variant="h5" align="center" color="primary" gutterBottom="gutterBottom" noWrap="noWrap">Notes</Typography>
+
     <TextField value={state} id="outlined-textarea" label="search" placeholder="search title of note" className={classes.textField} margin="normal" variant="outlined" fullWidth="fullWidth" onChange={search} InputProps={{
         endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
       }}/>
@@ -83,8 +85,6 @@ function NotesList() {
         endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
       }}/>
 
-    <Typography variant="h5" align="center" color="primary" gutterBottom="gutterBottom" noWrap="noWrap">Notes
-    </Typography>
     <div className={classes.margin}>
       {mainData.length > 0 && mainData.map((item, index) => (<Note id={index} item={item} key={item}/>))}
     </div>

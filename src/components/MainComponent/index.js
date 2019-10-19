@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 const initialState = {
   notes: [],
   modal:false,
-  edit:null
+  edit:0
 };
 
 const reducer = (state, action) => {
