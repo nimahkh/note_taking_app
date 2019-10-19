@@ -54,33 +54,60 @@ export default function ModalBase() {
     dispatch({type: 'openModal', modal: false})
   };
 
-  function addToNotes() {}
+  function addToNotes() {
+    const values = JSON.stringify(state);
+    const allNodes = LocalStorage.getNotes();
+    let allNodesObject = allNodes !== null
+      ? JSON.parse(allNodes)
+      : [];
 
-  function handleChange() {}
+    allNodesObject = allNodesObject.filter((note, index) => index !== edit);
+    allNodesObject.push(state)
 
-  React.useEffect(()=>{
-    if(edit!==null){
-      const itemToEdit=LocalStorage.note(edit)
+    LocalStorage.rmNotes()
+    dispatch({
+      type:'newNote',
+      notes:[]
+    })
+
+    LocalStorage.setNotes(JSON.stringify(allNodesObject));
+    dispatch({
+      type:'newNote',
+      notes:allNodesObject
+    })
+    handleClose()
+  }
+
+  function handleChange(name, event) {
+    setState({
+      ...state,
+      [name]: event.target.value
+    });
+  };
+
+  React.useEffect(() => {
+    if (edit !== null) {
+      const itemToEdit = LocalStorage.note(edit)
       setState(itemToEdit)
     }
-  },[edit])
+  }, [edit])
 
-  React.useEffect(()=>{
-    return ()=>{
+  React.useEffect(() => {
+    return() => {
       setState({category: '', message: '', title: ''})
     }
-  },[])
+  }, [])
 
   return (<React.Fragment>
     <Dialog open={modal} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Edit Note</DialogTitle>
       <DialogContent>
-        <TextField value={state!==undefined && state.title} id="outlined-textarea" label="Title" placeholder="Write your title" className={classes.textField} margin="normal" variant="outlined" fullWidth="fullWidth" onChange={(e) => handleChange('title', e)}/>
+        <TextField value={state !== undefined && state.title} id="outlined-textarea" label="Title" placeholder="Write your title" className={classes.textField} margin="normal" variant="outlined" fullWidth="fullWidth" onChange={(e) => handleChange('title', e)}/>
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
             Category
           </InputLabel>
-          <Select native="native" value={state!==undefined && state.category} onChange={(e) => handleChange('category', e)} labelWidth={labelWidth} inputProps={{
+          <Select native="native" value={state !== undefined && state.category} onChange={(e) => handleChange('category', e)} labelWidth={labelWidth} inputProps={{
               name: 'age',
               id: 'outlined-age-native-simple'
             }}>
@@ -91,7 +118,7 @@ export default function ModalBase() {
           </Select>
         </FormControl>
 
-        <TextField value={state!==undefined && state.message} id="outlined-textarea" label="Multiline Placeholder" placeholder="Write your note" multiline="multiline" className={classes.textField} margin="normal" variant="outlined" onChange={(e) => handleChange('message', e)} rows={10} fullWidth="fullWidth"/>
+        <TextField value={state !== undefined && state.message} id="outlined-textarea" label="Multiline Placeholder" placeholder="Write your note" multiline="multiline" className={classes.textField} margin="normal" variant="outlined" onChange={(e) => handleChange('message', e)} rows={10} fullWidth="fullWidth"/>
         <Button variant="outlined" color="primary" className={classes.button} onClick={addToNotes}>
           Edit Note
         </Button>

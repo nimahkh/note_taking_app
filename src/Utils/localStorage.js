@@ -19,7 +19,6 @@ LocalStorage.rmNotes =() => {
 LocalStorage.note =(id) => {
   const List=JSON.parse(LocalStorage.getNotes());
   return List[id];
-
 }
 
 export default LocalStorage;
