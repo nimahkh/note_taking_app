@@ -4,6 +4,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import LocalStorage from "../../Utils/localStorage"
 import {useStateValue} from '../../statemanagement'
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -12,15 +13,22 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 10
   },
   button: {
-    margin: theme.spacing(1),
+    position:'relative',
+    top:'-10px',
     float: 'right'
+  },
+  title:{
+    wordBreak: 'break-all' 
   }
 }));
 
 function Note(props) {
   const {item, id} = props;
   const classes = useStyles();
-  const [{notes},dispatch] = useStateValue();
+  const [
+    {
+      notes
+    }, dispatch] = useStateValue();
 
   function deleteNote() {
     let allNotes = notes.filter((note, index) => index !== id);
@@ -28,40 +36,31 @@ function Note(props) {
     LocalStorage.rmNotes();
     LocalStorage.setNotes(JSON.stringify(allNotes));
 
-    dispatch({
-      type:'newNote',
-      notes : allNotes
-    })
+    dispatch({type: 'newNote', notes: allNotes})
   }
 
-  function updateNote(){
-    dispatch({
-      type:'openModal',
-      modal: true,
-      edit: id
-    })
+  function updateNote() {
+    dispatch({type: 'openModal', modal: true, edit: id})
   }
 
-  function showNote(){
-    dispatch({
-      type:'showMessage',
-      showModal: true,
-      show: id
-    })
+  function showNote() {
+    dispatch({type: 'showMessage', showModal: true, show: id})
   }
 
   return (<Paper className={classes.paper}>
     {id + 1}
-    - {item.title}({item.category})
-    <Button variant="outlined" color="secondary" className={classes.button} onClick={deleteNote}>
-      Delete
-    </Button>
-    <Button variant="outlined" color="primary" className={classes.button} onClick={updateNote}>
-      Update
-    </Button>
-    <Button variant="outlined" color="primary" className={classes.button} onClick={showNote}>
-      Show
-    </Button>
+    - <span className={classes.title}>{(item.title)}({item.category})</span>
+    <ButtonGroup color="primary" aria-label="outlined primary button group" className={classes.button}>
+      <Button variant="outlined" color="secondary" onClick={deleteNote}>
+        Delete
+      </Button>
+      <Button variant="outlined" color="primary" onClick={updateNote}>
+        Update
+      </Button>
+      <Button variant="outlined" color="primary" onClick={showNote}>
+        Show
+      </Button>
+    </ButtonGroup>
   </Paper>)
 }
 
