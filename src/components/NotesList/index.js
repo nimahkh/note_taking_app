@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Note from "./Note"
+import {useStateValue} from '../../statemanagement'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,11 +21,12 @@ const useStyles = makeStyles(theme => ({
 
 function NotesList() {
   const classes = useStyles();
+  const [{notes},]=useStateValue();
 
   return (<React.Fragment>
     <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Notes </Typography>
     <div className={classes.margin}>
-      {[0,1,2,3,4].map(item=>(
+      {notes.map(item=>(
         <Note key={item} />
       ))}
     </div>
