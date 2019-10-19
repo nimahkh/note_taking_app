@@ -1,5 +1,4 @@
 import React from "react"
-import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -7,6 +6,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import LocalStorage from "../../Utils/localStorage"
+import {useStateValue} from '../../statemanagement'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -34,10 +35,10 @@ const useStyles = makeStyles(theme => ({
 
 function CreateNote() {
   const classes = useStyles();
-  const [state, setState] = React.useState({category: '', name: 'hai'});
+  const [state, setState] = React.useState({category: '', message: '', title:''});
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
-  const [values, setValues] = React.useState({name: 'Cat in the Hat', age: '', multiline: 'Controlled', currency: 'EUR'});
+  const [{notes},dispatch]=useStateValue()
 
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
@@ -50,8 +51,52 @@ function CreateNote() {
     });
   };
 
+  /**
+  * Add notes inside of localStorage and context api
+  **/
+  function addToNotes(){
+    const values=JSON.stringify(state);
+    const allNodes=LocalStorage.getNotes();
+    let allNodesObject=allNodes!==null ?JSON.parse(allNodes): [];
+
+    if(allNodesObject.length===0){
+      allNodesObject = [state];
+    }
+    else{
+      allNodesObject.push(state);
+    }
+
+    LocalStorage.setNotes(JSON.stringify(allNodesObject));
+    dispatch({
+      type:'newNote',
+      notes:allNodesObject
+    })
+  }
+
+  /**
+  * On component Did mount , send data from localStorage into context api
+  **/
+  React.useEffect(()=>{
+    const Notes=LocalStorage.getNotes();
+    if(Notes!==null){
+      const NoteList=JSON.parse(Notes);
+      dispatch({
+        type:'newNote',
+        notes:NoteList
+      })
+    }
+  },[])
+
   return (<React.Fragment>
-    <TextField id="outlined-textarea" label="Title" placeholder="Write your title" className={classes.textField} margin="normal" variant="outlined" fullWidth="fullWidth"/>
+    <TextField
+      id="outlined-textarea"
+      label="Title"
+      placeholder="Write your title"
+      className={classes.textField}
+      margin="normal"
+      variant="outlined"
+      fullWidth="fullWidth"
+      onChange={(e)=>handleChange('title',e)}/>
 
     <FormControl variant="outlined" className={classes.formControl}>
       <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
@@ -62,14 +107,24 @@ function CreateNote() {
           id: 'outlined-age-native-simple'
         }}>
         <option value=""/>
-        <option value={10}>Family</option>
-        <option value={20}>Work</option>
-        <option value={30}>Friends</option>
+        <option value={"Family"}>Family</option>
+        <option value={"Work"}>Work</option>
+        <option value={"Friends"}>Friends</option>
       </Select>
     </FormControl>
 
-    <TextField id="outlined-textarea" label="Multiline Placeholder" placeholder="Write your note" multiline="multiline" className={classes.textField} margin="normal" variant="outlined" rows={10} fullWidth="fullWidth"/>
-    <Button variant="outlined" color="primary" className={classes.button}>
+    <TextField
+      id="outlined-textarea"
+      label="Multiline Placeholder"
+      placeholder="Write your note"
+      multiline="multiline"
+      className={classes.textField}
+      margin="normal"
+      variant="outlined"
+      onChange={(e)=>handleChange('message',e)}
+      rows={10}
+      fullWidth="fullWidth"/>
+    <Button variant="outlined" color="primary" className={classes.button} onClick={addToNotes}>
       Add Note
     </Button>
   </React.Fragment>)
