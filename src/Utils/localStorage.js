@@ -12,8 +12,8 @@ LocalStorage.setNotes = (value) => {
   localStorage.setItem("notes", value)
 }
 
-LocalStorage.remove = (item) => {
-  localStorage.removeItem(item)
+LocalStorage.rmNotes =() => {
+  localStorage.removeItem('notes')
 }
 
 export default LocalStorage;
