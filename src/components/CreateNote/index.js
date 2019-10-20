@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import LocalStorage from "../../Utils/localStorage"
@@ -39,7 +38,7 @@ function CreateNote() {
   const [state, setState] = React.useState({category: '', message: '', title:''});
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
-  const [{notes},dispatch]=useStateValue()
+  const [,dispatch]=useStateValue()
 
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
@@ -56,7 +55,6 @@ function CreateNote() {
   * Add notes inside of localStorage and context api
   **/
   function addToNotes(){
-    const values=JSON.stringify(state);
     const allNodes=LocalStorage.getNotes();
     let allNodesObject=allNodes!==null ?JSON.parse(allNodes): [];
 
@@ -86,10 +84,10 @@ function CreateNote() {
         notes:NoteList
       })
     }
-  },[])
+  },[dispatch])
 
   return (<React.Fragment>
-    <Typography variant="h5" align="center" color="primary" gutterBottom="gutterBottom" noWrap="noWrap">Add a new Note</Typography>
+    <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Add a new Note</Typography>
 
     <TextField
       id="outlined-textarea"
@@ -98,14 +96,14 @@ function CreateNote() {
       className={classes.textField}
       margin="normal"
       variant="outlined"
-      fullWidth="fullWidth"
+      fullWidth
       onChange={(e)=>handleChange('title',e)}/>
 
     <FormControl variant="outlined" className={classes.formControl}>
       <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
         Category
       </InputLabel>
-      <Select native="native" value={state.category} onChange={(e)=>handleChange('category',e)} labelWidth={labelWidth} inputProps={{
+      <Select native value={state.category} onChange={(e)=>handleChange('category',e)} labelWidth={labelWidth} inputProps={{
           name: 'age',
           id: 'outlined-age-native-simple'
         }}>
@@ -120,13 +118,13 @@ function CreateNote() {
       id="outlined-textarea"
       label="Multiline Placeholder"
       placeholder="Write your note"
-      multiline="multiline"
+      multiline
       className={classes.textField}
       margin="normal"
       variant="outlined"
       onChange={(e)=>handleChange('message',e)}
       rows={10}
-      fullWidth="fullWidth"/>
+      fullWidth/>
     <Button variant="outlined" color="primary" className={classes.button} onClick={addToNotes}>
       Add Note
     </Button>

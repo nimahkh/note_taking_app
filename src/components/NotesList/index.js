@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {makeStyles} from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Note from "./Note"
 import {useStateValue} from '../../statemanagement'
@@ -34,8 +33,8 @@ function NotesList() {
     }
   ] = useStateValue();
   const [mainData, setMainData] = useState([]);
-  const [state, setState] = useState()
-  const [stateCategory, setStateCategory] = useState()
+  const [state, setState] = useState("")
+  const [stateCategory, setStateCategory] = useState("")
 
   function searchFor(keyword, key, array) {
     const toSearch = keyword.toLowerCase()
@@ -75,13 +74,13 @@ function NotesList() {
   }, [notes])
 
   return (<React.Fragment>
-    <Typography variant="h5" align="center" color="primary" gutterBottom="gutterBottom" noWrap="noWrap">Notes</Typography>
+    <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Notes</Typography>
 
-    <TextField value={state} id="outlined-textarea" label="search" placeholder="search title of note" className={classes.textField} margin="normal" variant="outlined" fullWidth="fullWidth" onChange={search} InputProps={{
+    <TextField value={state} id="outlined-textarea" label="search" placeholder="search title of note" className={classes.textField} margin="normal" variant="outlined" fullWidth onChange={(e)=>search(e)} InputProps={{
         endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
       }}/>
 
-    <TextField value={stateCategory} id="outlined-textarea" label="search category" placeholder="search for category" className={[classes.textField,classes.margin].join(" ")} margin="normal" variant="outlined" fullWidth="fullWidth" onChange={searchCategory} InputProps={{
+    <TextField value={stateCategory} id="outlined-textarea" label="search category" placeholder="search for category" className={[classes.textField,classes.margin].join(" ")} margin="normal" variant="outlined" fullWidth onChange={searchCategory} InputProps={{
         endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
       }}/>
 

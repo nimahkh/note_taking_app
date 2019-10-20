@@ -55,15 +55,15 @@ function MainComponent() {
 
   return (<React.Fragment>
     <Paper className={classes.root}>
-      <Grid container="container" spacing={3}>
+      <Grid container spacing={3}>
         <StateProvider initialState={initialState} reducer={reducer}>
           <React.Fragment>
             <ModalBase/>
             <ShowModal/>
-            <Grid item="item" xs={6}>
+            <Grid item xs={6}>
               <NotesList/>
             </Grid>
-            <Grid item="item" xs={6}>
+            <Grid item xs={6}>
               <CreateNote/>
             </Grid>
           </React.Fragment>
