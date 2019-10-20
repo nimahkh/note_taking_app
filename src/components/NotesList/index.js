@@ -58,8 +58,9 @@ function NotesList() {
     }
   }
 
-  function searchCategory(event) {
-    const value = event.target.value
+  function searchCategory(param) {
+    const target = param.target
+    const value= target!==undefined ? target.value : param
     setState("")
     setStateCategory(value)
     const searched = searchFor(value, 'category', notes);
@@ -87,9 +88,9 @@ function NotesList() {
       }}/>
 
     <ButtonGroup fullWidth variant="text" color="secondary" size="large" aria-label="large contained secondary button group">
-      <Button color="primary">Family</Button>
-      <Button>Work</Button>
-      <Button color="primary">Friends</Button>
+      <Button color="primary" onClick={()=>searchCategory('Family')}>Family</Button>
+      <Button onClick={()=>searchCategory('Work')}>Work</Button>
+      <Button color="primary" onClick={()=>searchCategory('Friends')}>Friends</Button>
     </ButtonGroup>
     <div className={classes.margin}>
       {mainData.length > 0 && mainData.map((item, index) => (<Note id={index} item={item} key={index}/>))}
