@@ -86,7 +86,7 @@ function NotesList() {
       }}/>
 
     <div className={classes.margin}>
-      {mainData.length > 0 && mainData.map((item, index) => (<Note id={index} item={item} key={item}/>))}
+      {mainData.length > 0 && mainData.map((item, index) => (<Note id={index} item={item} key={index}/>))}
     </div>
   </React.Fragment>)
 }
