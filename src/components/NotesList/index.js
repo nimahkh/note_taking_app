@@ -6,6 +6,8 @@ import {useStateValue} from '../../statemanagement'
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,14 +78,19 @@ function NotesList() {
   return (<React.Fragment>
     <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Notes</Typography>
 
-    <TextField value={state} id="outlined-textarea" label="search" placeholder="search title of note" className={classes.textField} margin="normal" variant="outlined" fullWidth onChange={(e)=>search(e)} InputProps={{
+    <TextField value={state} id="outlined-textarea" label="search" placeholder="search title of note" className={classes.textField} margin="normal" variant="outlined" fullWidth onChange={(e) => search(e)} InputProps={{
         endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
       }}/>
 
-    <TextField value={stateCategory} id="outlined-textarea" label="search category" placeholder="search for category" className={[classes.textField,classes.margin].join(" ")} margin="normal" variant="outlined" fullWidth onChange={searchCategory} InputProps={{
+    <TextField value={stateCategory} id="outlined-textarea" label="search category" placeholder="search for category" className={[classes.textField, classes.margin].join(" ")} margin="normal" variant="outlined" fullWidth onChange={searchCategory} InputProps={{
         endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
       }}/>
 
+    <ButtonGroup fullWidth variant="text" color="secondary" size="large" aria-label="large contained secondary button group">
+      <Button color="primary">Family</Button>
+      <Button>Work</Button>
+      <Button color="primary">Friends</Button>
+    </ButtonGroup>
     <div className={classes.margin}>
       {mainData.length > 0 && mainData.map((item, index) => (<Note id={index} item={item} key={index}/>))}
     </div>
