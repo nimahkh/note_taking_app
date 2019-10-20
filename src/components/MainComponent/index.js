@@ -26,7 +26,6 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
-  console.log(state,action);
   switch (action.type) {
     case 'newNote':
       return {
