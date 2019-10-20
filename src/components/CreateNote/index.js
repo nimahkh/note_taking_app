@@ -116,7 +116,7 @@ function CreateNote() {
 
     <TextField
       id="outlined-textarea"
-      label="Multiline Placeholder"
+      label="Write your Message"
       placeholder="Write your note"
       multiline
       className={classes.textField}

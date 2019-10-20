@@ -113,7 +113,7 @@ export default function ModalBase() {
           </Select>
         </FormControl>
 
-        <TextField value={state !== undefined && state.message} id="outlined-textarea" label="Multiline Placeholder" placeholder="Write your note" multiline className={classes.textField} margin="normal" variant="outlined" onChange={(e) => handleChange('message', e)} rows={10} fullWidth/>
+        <TextField value={state !== undefined && state.message} id="outlined-textarea" label="Write your Message" placeholder="Write your note" multiline className={classes.textField} margin="normal" variant="outlined" onChange={(e) => handleChange('message', e)} rows={10} fullWidth/>
         <Button variant="outlined" color="primary" className={classes.button} onClick={addToNotes}>
           Edit Note
         </Button>
