@@ -48,7 +48,6 @@ export default function ShowModal() {
   };
 
   React.useEffect(() => {
-    console.log(show);
     if (show !== null) {
       const itemToEdit = LocalStorage.note(show)
       setState(itemToEdit)

@@ -20,12 +20,13 @@ const useStyles = makeStyles(theme => ({
 const initialState = {
   notes: [],
   modal:false,
-  edit:0,
-  show:0,
+  edit:null,
+  show:null,
   showModal:false,
 };
 
 const reducer = (state, action) => {
+  console.log(state,action);
   switch (action.type) {
     case 'newNote':
       return {

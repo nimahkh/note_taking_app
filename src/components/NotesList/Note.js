@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     float: 'right'
   },
   title:{
-    wordBreak: 'break-all' 
+    wordBreak: 'break-all'
   }
 }));
 
