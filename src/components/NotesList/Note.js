@@ -50,11 +50,11 @@ function Note(props) {
   }
 
   return (<Paper className={classes.paper}>
-    <Grid container="container">
+    <Grid container>
       <div className={classes.title}>{id + 1}- {(item.title)}({item.category})</div>
     </Grid>
     <Divider variant="middle"/>
-    <Grid container="container">
+    <Grid container>
       <ButtonGroup color="primary" aria-label="outlined primary button group" className={classes.button}>
         <Button variant="outlined" color="secondary" onClick={deleteNote}>
           Delete
