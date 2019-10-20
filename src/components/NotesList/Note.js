@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import LocalStorage from "../../Utils/localStorage"
 import {useStateValue} from '../../statemanagement'
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -13,12 +15,12 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 10
   },
   button: {
-    position:'relative',
-    top:'-10px',
-    float: 'right'
+    position: 'relative',
+    top: '10px',
   },
-  title:{
-    wordBreak: 'break-all'
+  title: {
+    wordBreak: 'break-all',
+    paddingBottom:10
   }
 }));
 
@@ -48,19 +50,23 @@ function Note(props) {
   }
 
   return (<Paper className={classes.paper}>
-    {id + 1}
-    - <span className={classes.title}>{(item.title)}({item.category})</span>
-    <ButtonGroup color="primary" aria-label="outlined primary button group" className={classes.button}>
-      <Button variant="outlined" color="secondary" onClick={deleteNote}>
-        Delete
-      </Button>
-      <Button variant="outlined" color="primary" onClick={updateNote}>
-        Update
-      </Button>
-      <Button variant="outlined" color="primary" onClick={showNote}>
-        Show
-      </Button>
-    </ButtonGroup>
+    <Grid container="container">
+      <div className={classes.title}>{id + 1}- {(item.title)}({item.category})</div>
+    </Grid>
+    <Divider variant="middle"/>
+    <Grid container="container">
+      <ButtonGroup color="primary" aria-label="outlined primary button group" className={classes.button}>
+        <Button variant="outlined" color="secondary" onClick={deleteNote}>
+          Delete
+        </Button>
+        <Button variant="outlined" color="primary" onClick={updateNote}>
+          Update
+        </Button>
+        <Button variant="outlined" color="primary" onClick={showNote}>
+          Show
+        </Button>
+      </ButtonGroup>
+    </Grid>
   </Paper>)
 }
 
