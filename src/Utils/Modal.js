@@ -51,26 +51,19 @@ export default function ModalBase() {
   };
 
   function addToNotes() {
-    const allNodes = LocalStorage.getNotes();
-    let allNodesObject = allNodes !== null
-      ? JSON.parse(allNodes)
-      : [];
+    if(LocalStorage.updateId(edit,state)){
+      dispatch({
+        type:'newNote',
+        notes:[]
+      })
+      const allNodes = JSON.parse(LocalStorage.getNotes());
 
-    allNodesObject = allNodesObject.filter((note, index) => index !== edit);
-    allNodesObject.push(state)
-
-    LocalStorage.rmNotes()
-    dispatch({
-      type:'newNote',
-      notes:[]
-    })
-
-    LocalStorage.setNotes(JSON.stringify(allNodesObject));
-    dispatch({
-      type:'newNote',
-      notes:allNodesObject
-    })
-    handleClose()
+      dispatch({
+        type:'newNote',
+        notes:allNodes
+      })
+      handleClose()
+    }
   }
 
   function handleChange(name, event) {

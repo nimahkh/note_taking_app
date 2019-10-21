@@ -48,4 +48,24 @@ LocalStorage.findId= (id)=>{
   }
 }
 
+LocalStorage.updateId= (id,itemObject)=>{
+  const List=JSON.parse(LocalStorage.getNotes());
+  if(List!==null && List.length>0){
+    const updatedList= List.filter(item=>{
+      if(id===item.id){
+        const {title, message, category}=itemObject
+        item.title=title;
+        item.message=message;
+        item.category=category;
+      }
+      return item
+    })
+    LocalStorage.setNotes(JSON.stringify(updatedList));
+    return true
+  }
+  else{
+    return false;
+  }
+}
+
 export default LocalStorage;
