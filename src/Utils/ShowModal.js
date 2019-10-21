@@ -18,9 +18,9 @@ export default function ShowModal() {
   };
 
   React.useEffect(() => {
-    if (show !== null) {
-      const itemToEdit = LocalStorage.note(show)
-      setState(itemToEdit)
+    const rowExists=LocalStorage.findId(show);
+    if(rowExists.length>0){
+      setState(rowExists[0])
     }
   }, [show])
 
