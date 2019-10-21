@@ -23,3 +23,9 @@ export const useStyles = makeStyles(theme => ({
     width: '100%'
   }
 }));
+
+export const snackBarStyle = makeStyles(theme => ({
+  close: {
+    padding: theme.spacing(0.5),
+  },
+}));
