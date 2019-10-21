@@ -1,21 +1,12 @@
 import React from "react"
 import NotesList from "../NotesList"
 import CreateNote from "../CreateNote"
-import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {StateProvider} from "../../statemanagement"
 import ModalBase from "../../Utils/Modal"
 import ShowModal from "../../Utils/ShowModal"
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(3, 2),
-    width: '70%',
-    margin: '0 auto',
-    marginTop: 100
-  }
-}));
+import {useStyles} from './styles'
 
 const initialState = {
   notes: [],

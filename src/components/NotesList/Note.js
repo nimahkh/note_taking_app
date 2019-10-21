@@ -1,28 +1,12 @@
 import React from "react"
 import Paper from '@material-ui/core/Paper';
-import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import LocalStorage from "../../Utils/localStorage"
 import {useStateValue} from '../../statemanagement'
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-
-const useStyles = makeStyles(theme => ({
-  paper: {
-    padding: theme.spacing(2) * 2,
-    color: theme.palette.text.secondary,
-    marginBottom: 10
-  },
-  button: {
-    position: 'relative',
-    top: '10px',
-  },
-  title: {
-    wordBreak: 'break-all',
-    paddingBottom:10
-  }
-}));
+import {useNoteStyles as useStyles} from './styles'
 
 function Note(props) {
   const {item, id} = props;

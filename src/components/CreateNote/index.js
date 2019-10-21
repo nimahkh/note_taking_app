@@ -1,5 +1,4 @@
 import React from "react"
-import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -8,30 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import LocalStorage from "../../Utils/localStorage"
 import {useStateValue} from '../../statemanagement'
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  button: {
-    margin: theme.spacing(1)
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1)
-  },
-  dense: {
-    marginTop: theme.spacing(2)
-  },
-  menu: {
-    width: 200
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    width: '100%'
-  }
-}));
+import {useStyles} from './styles'
 
 function CreateNote() {
   const classes = useStyles();

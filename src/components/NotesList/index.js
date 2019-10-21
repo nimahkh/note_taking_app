@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Note from "./Note"
 import {useStateValue} from '../../statemanagement'
@@ -8,24 +7,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  paper: {
-    padding: theme.spacing(2) * 2,
-    color: theme.palette.text.secondary,
-    marginBottom: 10
-  },
-  margin: {
-    marginTop: 8
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1)
-  }
-}));
+import {useListStyles as useStyles} from "./styles"
 
 function NotesList() {
   const classes = useStyles();
