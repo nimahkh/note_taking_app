@@ -82,8 +82,10 @@ export default function ModalBase() {
 
   React.useEffect(() => {
     if (edit !== null) {
-      const itemToEdit = LocalStorage.note(edit)
-      setState(itemToEdit)
+      const rowExists=LocalStorage.findId(edit);
+      if(rowExists.length>0){
+        setState(rowExists[0])
+      }
     }
   }, [edit])
 

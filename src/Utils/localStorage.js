@@ -36,4 +36,16 @@ LocalStorage.rowExists= (object)=>{
   }
 }
 
+LocalStorage.findId= (id)=>{
+  const List=JSON.parse(LocalStorage.getNotes());
+  if(List!==null && List.length>0){
+    return List.filter(item=>{
+      return id===item.id;
+    })
+  }
+  else{
+    return [];
+  }
+}
+
 export default LocalStorage;
