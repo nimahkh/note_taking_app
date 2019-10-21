@@ -75,7 +75,7 @@ function NotesList() {
       <Button color="primary" onClick={()=>searchCategory('Friends')}>Friends</Button>
     </ButtonGroup>
     <div className={classes.margin}>
-      {mainData.length > 0 && mainData.map((item, index) => (<Note id={index} item={item} key={index}/>))}
+      {mainData.length > 0 && mainData.map((item, index) => (<Note row={index} item={item} key={item.id}/>))}
     </div>
   </React.Fragment>)
 }

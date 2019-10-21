@@ -9,7 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import {useNoteStyles as useStyles} from './styles'
 
 function Note(props) {
-  const {item, id} = props;
+  const {item, row} = props;
+  const {id, title, category}=item;
   const classes = useStyles();
   const [
     {
@@ -35,7 +36,7 @@ function Note(props) {
 
   return (<Paper className={classes.paper}>
     <Grid container>
-      <div className={classes.title}>{id + 1}- {(item.title)}({item.category})</div>
+      <div className={title}>{row + 1}- {title}({category})</div>
     </Grid>
     <Divider variant="middle"/>
     <Grid container>
