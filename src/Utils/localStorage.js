@@ -24,4 +24,16 @@ LocalStorage.note =(id) => {
   return []
 }
 
+LocalStorage.rowExists= (object)=>{
+  const List=JSON.parse(LocalStorage.getNotes());
+  if(List!==null && List.length>0){
+    return List.filter(item=>{
+      return object.id===item.id;
+    })
+  }
+  else{
+    return [];
+  }
+}
+
 export default LocalStorage;
