@@ -10,75 +10,84 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {useListStyles as useStyles} from "./styles"
 
 function NotesList() {
-  const classes = useStyles();
-  const [
-    {
-      notes
+    const classes = useStyles();
+    const [
+        {
+            notes
+        }
+    ] = useStateValue();
+    const [mainData, setMainData] = useState([]);
+    const [state, setState] = useState("")
+    const [stateCategory, setStateCategory] = useState("")
+
+    function searchFor(keyword, key, array) {
+        const toSearch = keyword.toLowerCase()
+        return array.filter(data => {
+            return data[key].toLowerCase().includes(toSearch)
+        });
     }
-  ] = useStateValue();
-  const [mainData, setMainData] = useState([]);
-  const [state, setState] = useState("")
-  const [stateCategory, setStateCategory] = useState("")
 
-  function searchFor(keyword, key, array) {
-    const toSearch = keyword.toLowerCase()
-    return array.filter(data => {
-      return data[key].toLowerCase().includes(toSearch)
-    });
-  }
-
-  function search(event) {
-    const value = event.target.value
-    setState(value)
-    setStateCategory("")
-    const searched = searchFor(value, 'title', notes);
-    if (searched.length > 0) {
-      setMainData(searched)
+    function search(event) {
+        const value = event.target.value
+        setState(value)
+        setStateCategory("")
+        const searched = searchFor(value, 'title', notes);
+        if (searched.length > 0) {
+            setMainData(searched)
+        }
+        if (value.length === 0) {
+            setMainData(notes)
+        }
     }
-    if (value.length === 0) {
-      setMainData(notes)
+
+    function searchCategory(param) {
+        const target = param.target
+        const value = target !== undefined ? target.value : param
+        setState("")
+        setStateCategory(value)
+        const searched = searchFor(value, 'category', notes);
+        if (searched.length > 0) {
+            setMainData(searched)
+        }
+        if (searched.length === 0) {
+            setMainData([])
+        }
     }
-  }
 
-  function searchCategory(param) {
-    const target = param.target
-    const value= target!==undefined ? target.value : param
-    setState("")
-    setStateCategory(value)
-    const searched = searchFor(value, 'category', notes);
-    if (searched.length > 0) {
-      setMainData(searched)
-    }
-    if (searched.length === 0) {
-      setMainData([])
-    }
-  }
+    React.useEffect(() => {
+        setMainData(notes);
+    }, [notes])
 
-  React.useEffect(() => {
-    setMainData(notes);
-  }, [notes])
+    return (<React.Fragment>
+        <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Notes</Typography>
 
-  return (<React.Fragment>
-    <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Notes</Typography>
+        <TextField value={state} id="outlined-textarea" label="search" placeholder="search title of note"
+                   className={classes.textField} margin="normal" variant="outlined" fullWidth
+                   onChange={(e) => search(e)} InputProps={{
+            endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
+        }}/>
 
-    <TextField value={state} id="outlined-textarea" label="search" placeholder="search title of note" className={classes.textField} margin="normal" variant="outlined" fullWidth onChange={(e) => search(e)} InputProps={{
-        endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
-      }}/>
+        <TextField value={stateCategory} id="outlined-textarea" label="search category"
+                   placeholder="search for category" className={[classes.textField, classes.margin].join(" ")}
+                   margin="normal" variant="outlined" fullWidth onChange={searchCategory} InputProps={{
+            endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
+        }}/>
 
-    <TextField value={stateCategory} id="outlined-textarea" label="search category" placeholder="search for category" className={[classes.textField, classes.margin].join(" ")} margin="normal" variant="outlined" fullWidth onChange={searchCategory} InputProps={{
-        endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
-      }}/>
-
-    <ButtonGroup fullWidth variant="text" color="secondary" size="large" aria-label="large contained secondary button group">
-      <Button color={stateCategory===''?"secondary":"primary"} onClick={()=>searchCategory('')}>All</Button>
-      <Button color={stateCategory==='Family'?"secondary":"primary"} onClick={()=>searchCategory('Family')}>Family</Button>
-      <Button color={stateCategory==='Work'?"secondary":"primary"} onClick={()=>searchCategory('Work')}>Work</Button>
-      <Button color={stateCategory==='Friends'?"secondary":"primary"} onClick={()=>searchCategory('Friends')}>Friends</Button>
-    </ButtonGroup>
-    <div className={classes.margin}>
-      {mainData.length > 0 && mainData.map((item, index) => (<Note row={index} item={item} key={item.id}/>))}
-    </div>
-  </React.Fragment>)
+        <ButtonGroup fullWidth variant="text" color="secondary" size="large"
+                     aria-label="large contained secondary button group">
+            <Button color={stateCategory === '' ? "secondary" : "primary"}
+                    onClick={() => searchCategory('')}>All</Button>
+            <Button color={stateCategory === 'Family' ? "secondary" : "primary"}
+                    onClick={() => searchCategory('Family')}>Family</Button>
+            <Button color={stateCategory === 'Work' ? "secondary" : "primary"}
+                    onClick={() => searchCategory('Work')}>Work</Button>
+            <Button color={stateCategory === 'Friends' ? "secondary" : "primary"}
+                    onClick={() => searchCategory('Friends')}>Friends</Button>
+        </ButtonGroup>
+        <div className={classes.margin}>
+            {mainData.length > 0 && mainData.map((item, index) => (<Note row={index} item={item} key={item.id}/>))}
+        </div>
+    </React.Fragment>)
 }
 
 export default NotesList

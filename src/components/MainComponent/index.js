@@ -9,59 +9,59 @@ import ShowModal from "../../Utils/ShowModal"
 import {useStyles} from './styles'
 
 const initialState = {
-  notes: [],
-  modal:false,
-  edit:null,
-  show:null,
-  showModal:false,
+    notes: [],
+    modal: false,
+    edit: null,
+    show: null,
+    showModal: false,
 };
 
 const reducer = (state, action) => {
-  switch (action.type) {
-    case 'newNote':
-      return {
-        ...state,
-        notes: action.notes
-      };
-    case 'openModal':
-      return {
-        ...state,
-        modal: action.modal,
-        edit: action.edit
-      };
-    case 'showMessage':
-      return {
-        ...state,
-        showModal: action.showModal,
-        show: action.show
-      };
+    switch (action.type) {
+        case 'newNote':
+            return {
+                ...state,
+                notes: action.notes
+            };
+        case 'openModal':
+            return {
+                ...state,
+                modal: action.modal,
+                edit: action.edit
+            };
+        case 'showMessage':
+            return {
+                ...state,
+                showModal: action.showModal,
+                show: action.show
+            };
 
-    default:
-      return state;
-  }
+        default:
+            return state;
+    }
 };
 
 function MainComponent() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (<React.Fragment>
-    <Paper className={classes.root}>
-      <Grid container spacing={3}>
-        <StateProvider initialState={initialState} reducer={reducer}>
-          <React.Fragment>
-            <ModalBase/>
-            <ShowModal/>
-            <Grid item xs={6}>
-              <NotesList/>
+    return (<React.Fragment>
+        <Paper className={classes.root}>
+            <Grid container spacing={3}>
+                <StateProvider initialState={initialState} reducer={reducer}>
+                    <React.Fragment>
+                        <ModalBase/>
+                        <ShowModal/>
+                        <Grid item xs={6}>
+                            <NotesList/>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <CreateNote/>
+                        </Grid>
+                    </React.Fragment>
+                </StateProvider>
             </Grid>
-            <Grid item xs={6}>
-              <CreateNote/>
-            </Grid>
-          </React.Fragment>
-        </StateProvider>
-      </Grid>
-    </Paper>
-  </React.Fragment>)
+        </Paper>
+    </React.Fragment>)
 }
 
 export default MainComponent
