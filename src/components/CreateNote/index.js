@@ -91,6 +91,22 @@ function CreateNote() {
             </Select>
         </FormControl>
 
+        <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel ref={inputLabel} htmlFor="outlined-category-native-simple">
+                Note Book
+            </InputLabel>
+            <Select native value={state.category} onChange={(e) => handleChange('category', e)} labelWidth={labelWidth}
+                    inputProps={{
+                        name: 'category',
+                        id: 'outlined-category-native-simple'
+                    }}>
+                <option value=""/>
+                <option value={"Next Month"}>Next Month</option>
+                <option value={"University"}>University</option>
+                <option value={"Home"}>Home</option>
+            </Select>
+        </FormControl>
+
         <TextField id="outlined-textarea" label="Write your Message" placeholder="Write your note" multiline
                    className={classes.textField} margin="normal" variant="outlined"
                    onChange={(e) => handleChange('message', e)} rows={10} fullWidth/>
