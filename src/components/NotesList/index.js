@@ -19,6 +19,7 @@ function NotesList() {
     const [mainData, setMainData] = useState([]);
     const [state, setState] = useState("")
     const [stateCategory, setStateCategory] = useState("")
+    const [checkboxes, setCheckboxes]= useState([])
 
     function searchFor(keyword, key, array) {
         const toSearch = keyword.toLowerCase()
@@ -54,9 +55,26 @@ function NotesList() {
         }
     }
 
+    /**
+    * handle check boxes to move into note books
+    **/
+    function handleCheckbox(state, id){
+      if(state){
+        setCheckboxes([...checkboxes,id])
+      }else{
+        const index=checkboxes.indexOf(id);
+        checkboxes.splice(index, 1);
+        setCheckboxes(checkboxes)
+      }
+    }
+
     React.useEffect(() => {
         setMainData(notes);
     }, [notes])
+
+    React.useEffect(() => {
+        console.log(checkboxes);
+    }, [checkboxes])
 
     return (<React.Fragment>
         <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Notes</Typography>
@@ -85,7 +103,7 @@ function NotesList() {
                     onClick={() => searchCategory('Friends')}>Friends</Button>
         </ButtonGroup>
         <div className={classes.margin}>
-            {mainData.length > 0 && mainData.map((item, index) => (<Note row={index} item={item} key={item.id}/>))}
+            {mainData.length > 0 && mainData.map((item, index) => (<Note setCheckbox={handleCheckbox} row={index} item={item} key={item.id}/>))}
         </div>
     </React.Fragment>)
 }
