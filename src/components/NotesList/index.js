@@ -8,6 +8,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {useListStyles as useStyles} from "./styles"
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 function NotesList() {
     const classes = useStyles();
@@ -63,18 +66,23 @@ function NotesList() {
         setCheckboxes([...checkboxes,id])
       }else{
         const index=checkboxes.indexOf(id);
-        checkboxes.splice(index, 1);
-        setCheckboxes(checkboxes)
+        checkboxes.splice(index,1)
+        if(checkboxes.length===0){
+          setCheckboxes([]);
+        }
+        else{
+          setCheckboxes(checkboxes);
+        }
       }
+    }
+
+    function handleMoveNotes(e){
+      console.log(e.target.value,checkboxes);
     }
 
     React.useEffect(() => {
         setMainData(notes);
     }, [notes])
-
-    React.useEffect(() => {
-        console.log(checkboxes);
-    }, [checkboxes])
 
     return (<React.Fragment>
         <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Notes</Typography>
@@ -90,6 +98,28 @@ function NotesList() {
                    margin="normal" variant="outlined" fullWidth onChange={searchCategory} InputProps={{
             endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>
         }}/>
+
+      <FormControl fullWidth variant="outlined" className={classes.formControl}>
+            <InputLabel htmlFor="outlined-Notebook-native-simple">
+                Move to
+            </InputLabel>
+            <Select
+              classes={{disabled:classes.moveToSelect}}
+              disabled={checkboxes.length===0}
+              native
+              onChange={handleMoveNotes}
+              value={state.category}
+              labelWidth={60}
+                    inputProps={{
+                        name: 'Notebook',
+                        id: 'outlined-Notebook-native-simple'
+                    }}>
+                <option value=""/>
+                <option value={"University"}>University</option>
+                <option value={"Office"}>Office</option>
+                <option value={"Home"}>Home</option>
+            </Select>
+        </FormControl>
 
         <ButtonGroup fullWidth variant="text" color="secondary" size="large"
                      aria-label="large contained secondary button group">

@@ -32,5 +32,14 @@ export const useListStyles = makeStyles(theme => ({
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1)
+    },
+    formControl: {
+        marginTop: theme.spacing(1)+"px !important",
+        marginBottom: theme.spacing(1)+"px !important",
+        width: '100% !important'
+    },
+    moveToSelect: {
+      backgroundColor:'#ccc !important',
+      color:'#333 !important'
     }
 }));
