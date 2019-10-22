@@ -8,6 +8,13 @@ LocalStorage.getNotes = () => {
 }
 
 /**
+ * get all notes of notebooks
+ **/
+LocalStorage.getNotebooks = (notebook) => {
+    return localStorage.getItem(notebook)
+}
+
+/**
  * set a note
  **/
 LocalStorage.set = (key, value) => {
@@ -44,6 +51,20 @@ LocalStorage.note = (id) => {
  **/
 LocalStorage.rowExists = (object) => {
     const List = JSON.parse(LocalStorage.getNotes());
+    if (List !== null && List.length > 0) {
+        return List.filter(item => {
+            return object.id === item.id;
+        })
+    } else {
+        return [];
+    }
+}
+
+/**
+ * check that note exists by id in specific notebook
+ **/
+LocalStorage.rowExistsIn = (notebook,object) => {
+    const List = JSON.parse(localStorage.getItem(notebook));
     if (List !== null && List.length > 0) {
         return List.filter(item => {
             return object.id === item.id;
