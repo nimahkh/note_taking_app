@@ -115,8 +115,8 @@ function NotesList() {
                         id: 'outlined-Notebook-native-simple'
                     }}>
                 <option value=""/>
+                <option value={"Next Month"}>Next Month</option>
                 <option value={"University"}>University</option>
-                <option value={"Office"}>Office</option>
                 <option value={"Home"}>Home</option>
             </Select>
         </FormControl>
