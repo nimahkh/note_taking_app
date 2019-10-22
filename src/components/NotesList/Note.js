@@ -18,8 +18,7 @@ function Note(props) {
     }, dispatch] = useStateValue();
 
   function deleteNote() {
-    let allNotes = notes.filter((note, index) => index !== id);
-
+    let allNotes = notes.filter((note) => note.id !== id);
     LocalStorage.rmNotes();
     LocalStorage.setNotes(JSON.stringify(allNotes));
 
