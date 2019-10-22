@@ -49,8 +49,8 @@ function NotesList() {
     if (searched.length > 0) {
       setMainData(searched)
     }
-    if (value.length === 0) {
-      setMainData(notes)
+    if (searched.length === 0) {
+      setMainData([])
     }
   }
 
@@ -70,9 +70,10 @@ function NotesList() {
       }}/>
 
     <ButtonGroup fullWidth variant="text" color="secondary" size="large" aria-label="large contained secondary button group">
-      <Button color="primary" onClick={()=>searchCategory('Family')}>Family</Button>
-      <Button onClick={()=>searchCategory('Work')}>Work</Button>
-      <Button color="primary" onClick={()=>searchCategory('Friends')}>Friends</Button>
+      <Button color={stateCategory===''?"secondary":"primary"} onClick={()=>searchCategory('')}>All</Button>
+      <Button color={stateCategory==='Family'?"secondary":"primary"} onClick={()=>searchCategory('Family')}>Family</Button>
+      <Button color={stateCategory==='Work'?"secondary":"primary"} onClick={()=>searchCategory('Work')}>Work</Button>
+      <Button color={stateCategory==='Friends'?"secondary":"primary"} onClick={()=>searchCategory('Friends')}>Friends</Button>
     </ButtonGroup>
     <div className={classes.margin}>
       {mainData.length > 0 && mainData.map((item, index) => (<Note row={index} item={item} key={item.id}/>))}
