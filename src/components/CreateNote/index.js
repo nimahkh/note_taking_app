@@ -76,13 +76,13 @@ function CreateNote() {
                    margin="normal" variant="outlined" fullWidth onChange={(e) => handleChange('title', e)}/>
 
         <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
+            <InputLabel ref={inputLabel} htmlFor="outlined-category-native-simple">
                 Category
             </InputLabel>
             <Select native value={state.category} onChange={(e) => handleChange('category', e)} labelWidth={labelWidth}
                     inputProps={{
-                        name: 'age',
-                        id: 'outlined-age-native-simple'
+                        name: 'category',
+                        id: 'outlined-category-native-simple'
                     }}>
                 <option value=""/>
                 <option value={"Family"}>Family</option>
