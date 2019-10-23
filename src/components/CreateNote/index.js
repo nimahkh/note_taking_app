@@ -86,10 +86,19 @@ function CreateNote() {
      * On component Did mount , send data from localStorage into context api
      **/
     React.useEffect(() => {
-        const Notes = LocalStorage.getNotes();
-        if (Notes !== null) {
-            const NoteList = JSON.parse(Notes);
-            dispatch({type: 'newNote', notes: NoteList})
+        let All;
+        let NoteNextMonth = LocalStorage.getNotebooks('Next Month');
+        let University = LocalStorage.getNotebooks('University');
+        let Home = LocalStorage.getNotebooks('Home');
+        let Notes = LocalStorage.getNotebooks('notes');
+
+        NoteNextMonth=NoteNextMonth!==null?JSON.parse(NoteNextMonth):[];
+        University=University!==null?JSON.parse(University):[];
+        Home=Home!==null?JSON.parse(Home):[];
+        Notes=Notes!==null?JSON.parse(Notes):[];
+        All=[...NoteNextMonth,...University,...Home,...Notes]
+        if (All.length>0) {
+            dispatch({type: 'newNote', notes: All})
         }
     }, [dispatch])
 
