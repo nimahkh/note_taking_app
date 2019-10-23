@@ -17,6 +17,7 @@ function NoteBooks() {
             notes
         }
     ] = useStateValue();
+    const [activeNote, setActiveNote]= useState('all')
     const [, dispatch] = useStateValue()
 
     function showNotesOf(Notebook){
@@ -24,7 +25,7 @@ function NoteBooks() {
         let University = LocalStorage.getNotebooks('University');
         let Home = LocalStorage.getNotebooks('Home');
         let Notes = LocalStorage.getNotebooks('notes');
-
+        setActiveNote(Notebook)
         if(Notebook==="all"){
             let All;
             NoteNextMonth=NoteNextMonth!==null?JSON.parse(NoteNextMonth):[];
@@ -60,7 +61,7 @@ function NoteBooks() {
         <div className={classes.demo}>
             <List dense={false}>
                 <ListItem
-                    className={classes.noteBookList}
+                    className={[classes.noteBookList,activeNote==="all" && classes.active].join(" ")}
                     onClick={()=>showNotesOf('all')}
                 >
                   <ListItemAvatar>
@@ -70,12 +71,11 @@ function NoteBooks() {
                   </ListItemAvatar>
                   <ListItemText
                     primary="All"
-                    secondary={'Counts : (5)'}
                   />
                 </ListItem>
 
                 <ListItem
-                    className={classes.noteBookList}
+                    className={[classes.noteBookList,activeNote==="Next Month" && classes.active].join(" ")}
                     onClick={()=>showNotesOf('Next Month')}
                 >
                   <ListItemAvatar>
@@ -85,12 +85,11 @@ function NoteBooks() {
                   </ListItemAvatar>
                   <ListItemText
                     primary="Next Month"
-                    secondary={'Counts : (10)'}
                   />
                 </ListItem>
 
                 <ListItem
-                    className={classes.noteBookList}
+                    className={[classes.noteBookList,activeNote==="University" && classes.active].join(" ")}
                     onClick={()=>showNotesOf('University')}
                 >
                   <ListItemAvatar>
@@ -100,12 +99,11 @@ function NoteBooks() {
                   </ListItemAvatar>
                   <ListItemText
                     primary="University"
-                    secondary={'Counts : (15)'}
                   />
                 </ListItem>
 
                 <ListItem
-                    className={classes.noteBookList}
+                    className={[classes.noteBookList,activeNote==="Home" && classes.active].join(" ")}
                     onClick={()=>showNotesOf('Home')}
                 >
                   <ListItemAvatar>
@@ -115,7 +113,6 @@ function NoteBooks() {
                   </ListItemAvatar>
                   <ListItemText
                     primary="Home"
-                    secondary={'Counts : (23)'}
                   />
                 </ListItem>
             </List>

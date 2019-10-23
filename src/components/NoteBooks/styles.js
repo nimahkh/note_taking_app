@@ -7,5 +7,8 @@ export const useListStyles = makeStyles(theme => ({
     },
     noteBookList:{
         cursor:'pointer'
+    },
+    active:{
+      backgroundColor:'#ccc',
     }
 }));
