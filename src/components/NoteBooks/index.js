@@ -8,6 +8,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import FolderIcon from '@material-ui/icons/Folder';
+import LocalStorage from "../../Utils/localStorage";
 
 function NoteBooks() {
     const classes = useStyles();
@@ -16,6 +17,41 @@ function NoteBooks() {
             notes
         }
     ] = useStateValue();
+    const [, dispatch] = useStateValue()
+
+    function showNotesOf(Notebook){
+        let NoteNextMonth = LocalStorage.getNotebooks('Next Month');
+        let University = LocalStorage.getNotebooks('University');
+        let Home = LocalStorage.getNotebooks('Home');
+        let Notes = LocalStorage.getNotebooks('notes');
+
+        if(Notebook==="all"){
+            let All;
+            NoteNextMonth=NoteNextMonth!==null?JSON.parse(NoteNextMonth):[];
+            University=University!==null?JSON.parse(University):[];
+            Home=Home!==null?JSON.parse(Home):[];
+            Notes=Notes!==null?JSON.parse(Notes):[];
+            All=[...NoteNextMonth,...University,...Home,...Notes]
+            if (All.length>0) {
+                dispatch({type: 'newNote', notes: All})
+            }
+        }
+        else{
+            let Notes;
+            if(Notebook==="Next Month"){
+                Notes=NoteNextMonth;
+            }
+            if(Notebook==="University"){
+                Notes=University;
+            }
+            if(Notebook==="Home"){
+                Notes=Home;
+            }
+
+            Notes=Notes!==null?JSON.parse(Notes): [];
+            dispatch({type: 'newNote', notes: Notes})
+        }
+    }
 
     return (<React.Fragment>
         <Typography variant="h5" align="center" color="primary" gutterBottom noWrap>Note Books</Typography>
@@ -23,7 +59,10 @@ function NoteBooks() {
       <div className={classes.noteBooksContainer}>
         <div className={classes.demo}>
             <List dense={false}>
-                <ListItem>
+                <ListItem
+                    className={classes.noteBookList}
+                    onClick={()=>showNotesOf('all')}
+                >
                   <ListItemAvatar>
                     <Avatar>
                       <FolderIcon />
@@ -35,7 +74,10 @@ function NoteBooks() {
                   />
                 </ListItem>
 
-                <ListItem>
+                <ListItem
+                    className={classes.noteBookList}
+                    onClick={()=>showNotesOf('Next Month')}
+                >
                   <ListItemAvatar>
                     <Avatar>
                       <FolderIcon />
@@ -47,7 +89,10 @@ function NoteBooks() {
                   />
                 </ListItem>
 
-                <ListItem>
+                <ListItem
+                    className={classes.noteBookList}
+                    onClick={()=>showNotesOf('University')}
+                >
                   <ListItemAvatar>
                     <Avatar>
                       <FolderIcon />
@@ -59,7 +104,10 @@ function NoteBooks() {
                   />
                 </ListItem>
 
-                <ListItem>
+                <ListItem
+                    className={classes.noteBookList}
+                    onClick={()=>showNotesOf('Home')}
+                >
                   <ListItemAvatar>
                     <Avatar>
                       <FolderIcon />
