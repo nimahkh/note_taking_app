@@ -27,6 +27,9 @@ function NotesList() {
     const [stateCategory, setStateCategory] = useState("")
     const [checkboxes, setCheckboxes]= useState([])
 
+    /**
+     * Find the object with complexicity O(n2)
+    **/
     function searchFor(keyword, key, array) {
         const toSearch = keyword.toLowerCase()
         return array.filter(data => {
@@ -34,6 +37,9 @@ function NotesList() {
         });
     }
 
+    /**
+     * Handle Search in titles
+    **/
     function search(event) {
         const value = event.target.value
         setState(value)
@@ -47,6 +53,9 @@ function NotesList() {
         }
     }
 
+    /**
+     * Handle Search in categories
+    **/
     function searchCategory(param) {
         const target = param.target
         const value = target !== undefined ? target.value : param
@@ -79,6 +88,9 @@ function NotesList() {
       }
     }
 
+    /**
+     * Handle Move notes
+    **/
     function handleMoveNotes(e){
       const NoteBookName=e.target.value;
       let Notes=[];
