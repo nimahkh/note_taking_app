@@ -33,6 +33,36 @@ const objects = [
     }
 ]
 
+const HomeNoteBook = [
+    {
+        id: 23456789,
+        message: "Home Message",
+        category: "Family",
+        title: "Test Title"
+    }, {
+        id: 23456785,
+        message: "Second Home Message",
+        category: "work",
+        title: "Second Test Title"
+    }
+]
+
+const UniversityNoteBook = [
+    {
+        id: 23456789,
+        message: "University Message",
+        category: "Family",
+        title: "Test Title"
+    }, {
+        id: 23456785,
+        message: "Second University Message",
+        category: "work",
+        title: "Second Test Title"
+    }
+]
+
+const NoteNextMonth=[];
+
 describe("Test Locastorage functionality", () => {
 
     test("test insert note", () => {
@@ -104,6 +134,30 @@ describe("Test Locastorage functionality", () => {
         const RowIsNotExists = LocalStorage.rowExists(unExistsObject);
 
         expect(RowIsNotExists.length === 0).toBe(true);
+    })
+
+    test("Set All NoteBooks", () => {
+        //first set the item
+        LocalStorage.set('Home',JSON.stringify(HomeNoteBook))
+        LocalStorage.set('University',JSON.stringify(UniversityNoteBook))
+        LocalStorage.set('Next Month',JSON.stringify(NoteNextMonth))
+        const AllNotes=LocalStorage.getAllNotes();
+        const Assert= [...NoteNextMonth,...UniversityNoteBook,...HomeNoteBook];
+
+        expect(AllNotes).toEqual(Assert)
+
+        const AssertNot= [...HomeNoteBook,...UniversityNoteBook,...NoteNextMonth];
+        //wont be equal
+        expect(AllNotes).not.toEqual(AssertNot)
+    })
+
+    test("Get One NoteBook", () => {
+        //first set the item
+        LocalStorage.set('Home',JSON.stringify(HomeNoteBook))
+
+        const Home=JSON.parse(LocalStorage.getNotebooks('Home'));
+
+        expect(Home).toEqual(HomeNoteBook)
     })
 
 })
