@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Typography from '@material-ui/core/Typography';
 import Note from "./Note"
 import {useStateValue} from '../../statemanagement'
+import LocalStorage from '../../Utils/localStorage'
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -17,10 +18,12 @@ function NotesList() {
     const [
         {
             notes
-        }
+        },
+        dispatch
     ] = useStateValue();
     const [mainData, setMainData] = useState([]);
     const [state, setState] = useState("")
+    const [notebookDropDown, setNotebookDropDown] = useState("")
     const [stateCategory, setStateCategory] = useState("")
     const [checkboxes, setCheckboxes]= useState([])
 
@@ -77,7 +80,51 @@ function NotesList() {
     }
 
     function handleMoveNotes(e){
-      console.log(e.target.value,checkboxes);
+      const NoteBookName=e.target.value;
+      let Notes=[];
+      let allNodesObject=[];
+      //step 1- remove Notes from current NoteBook
+      checkboxes.map(item=>{
+        //push items before remove and create a clone
+        const Note=LocalStorage.findId(item)[0];
+        const NoteBookOfTheNote=Note.notebook;
+        const getObjectsOfTheNoteBook=JSON.parse(LocalStorage.getNotebooks(NoteBookOfTheNote))
+
+        let removeNote = getObjectsOfTheNoteBook.filter((note) => note.id !== Note.id);
+        LocalStorage.rmNoteBook(NoteBookOfTheNote);
+        LocalStorage.set(NoteBookOfTheNote,JSON.stringify(removeNote));
+
+        Notes.push(Note);
+        return true;
+      })
+
+      //step 2- move to new NoteBook
+      const allNodes = LocalStorage.getNotebooks(NoteBookName);
+      allNodesObject = allNodes !== null
+         ? JSON.parse(allNodes)
+         : [];
+      Notes.map(Note=>{
+
+        Note.notebook=NoteBookName;
+            //if Notebook is empty , we have to initial firs object
+        if (allNodesObject.length === 0) {
+            allNodesObject = [Note];
+        } else {
+          //so push into it
+            allNodesObject.push(Note);
+        }
+        return true;
+      })
+      LocalStorage.set(NoteBookName, JSON.stringify(allNodesObject));
+
+      //step 3- res dispatch current NoteBook witn nre Note list and disable Move
+      setCheckboxes([])
+      setNotebookDropDown("")
+      dispatch({
+        type:'newNote',
+        notes:allNodesObject
+      })
+
     }
 
     React.useEffect(() => {
@@ -108,7 +155,7 @@ function NotesList() {
               disabled={checkboxes.length===0}
               native
               onChange={handleMoveNotes}
-              value={state.category}
+              value={notebookDropDown}
               labelWidth={60}
                     inputProps={{
                         name: 'Notebook',
