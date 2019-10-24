@@ -126,7 +126,9 @@ LocalStorage.findId = (id) => {
  * update a note by id
  **/
 LocalStorage.updateId = (id, itemObject) => {
-  const List = JSON.parse(LocalStorage.getNotes());
+  const List = JSON.parse(LocalStorage.getNotebooks(itemObject.notebook===''?'notes':itemObject.notebook));
+
+  let notebookIs=itemObject.notebook;
   if (List !== null && List.length > 0) {
     const updatedList = List.filter(item => {
       if (id === item.id) {
@@ -137,7 +139,7 @@ LocalStorage.updateId = (id, itemObject) => {
       }
       return item
     })
-    LocalStorage.setNotes(JSON.stringify(updatedList));
+    LocalStorage.set(notebookIs===""?'notes':notebookIs,JSON.stringify(updatedList));
     return true
   } else {
     return false;

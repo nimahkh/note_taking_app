@@ -93,48 +93,45 @@ function NotesList() {
     **/
     function handleMoveNotes(e){
       const NoteBookName=e.target.value;
-      let Notes=[];
-      let allNodesObject=[];
+
       //step 1- remove Notes from current NoteBook
       checkboxes.map(item=>{
         //push items before remove and create a clone
         const Note=LocalStorage.findId(item)[0];
         const NoteBookOfTheNote=Note.notebook;
-        const getObjectsOfTheNoteBook=JSON.parse(LocalStorage.getNotebooks(NoteBookOfTheNote))
+        const getObjectsOfTheNoteBook=JSON.parse(LocalStorage.getNotebooks(NoteBookOfTheNote==='' ? 'notes': NoteBookOfTheNote))
 
         let removeNote = getObjectsOfTheNoteBook.filter((note) => note.id !== Note.id);
-        LocalStorage.rmNoteBook(NoteBookOfTheNote);
-        LocalStorage.set(NoteBookOfTheNote,JSON.stringify(removeNote));
+        LocalStorage.rmNoteBook(NoteBookOfTheNote===''?'notes':NoteBookOfTheNote);
+        LocalStorage.set(NoteBookOfTheNote===''?'notes':NoteBookOfTheNote,JSON.stringify(removeNote));
 
-        Notes.push(Note);
+        //step 2- move to new NoteBook
+        let allNodesObject=[];
+        const allNodes = LocalStorage.getNotebooks(NoteBookName);
+        allNodesObject = allNodes !== null
+           ? JSON.parse(allNodes)
+           : [];
+           Note.notebook=NoteBookName;
+           //if Notebook is empty , we have to initial firs object
+           if (allNodesObject.length === 0) {
+               allNodesObject = [Note];
+           } else {
+             //so push into it
+               allNodesObject.push(Note);
+           }
+
+         LocalStorage.set(NoteBookName, JSON.stringify(allNodesObject));
+
+         //step 3- res dispatch current NoteBook witn nre Note list and disable Move
+         setCheckboxes([])
+         setNotebookDropDown("")
+         dispatch({
+           type:'newNote',
+           notes:allNodesObject
+         })
+
+      //  Notes.push(Note);
         return true;
-      })
-
-      //step 2- move to new NoteBook
-      const allNodes = LocalStorage.getNotebooks(NoteBookName);
-      allNodesObject = allNodes !== null
-         ? JSON.parse(allNodes)
-         : [];
-      Notes.map(Note=>{
-
-        Note.notebook=NoteBookName;
-            //if Notebook is empty , we have to initial firs object
-        if (allNodesObject.length === 0) {
-            allNodesObject = [Note];
-        } else {
-          //so push into it
-            allNodesObject.push(Note);
-        }
-        return true;
-      })
-      LocalStorage.set(NoteBookName, JSON.stringify(allNodesObject));
-
-      //step 3- res dispatch current NoteBook witn nre Note list and disable Move
-      setCheckboxes([])
-      setNotebookDropDown("")
-      dispatch({
-        type:'newNote',
-        notes:allNodesObject
       })
 
     }

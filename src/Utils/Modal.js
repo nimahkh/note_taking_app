@@ -56,7 +56,8 @@ export default function ModalBase() {
                 type: 'newNote',
                 notes: []
             })
-            const allNodes = JSON.parse(LocalStorage.getNotes());
+            const findItem=LocalStorage.findId(edit)[0];
+            const allNodes = JSON.parse(LocalStorage.getNotebooks(findItem.notebook===""?'notes':findItem.notebook));
 
             dispatch({
                 type: 'newNote',

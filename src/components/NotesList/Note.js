@@ -14,10 +14,7 @@ function Note(props) {
   const {id, title, category} = item;
   const [checkbox, setCheckbox] = React.useState(false)
   const classes = useStyles();
-  const [
-    {
-      notes
-    }, dispatch] = useStateValue();
+  const [, dispatch] = useStateValue();
 
   function handleChangeCheckBox() {
     setCheckbox(!checkbox)
@@ -25,11 +22,17 @@ function Note(props) {
   }
 
   function deleteNote() {
-    let allNotes = notes.filter((note) => note.id !== id);
-    LocalStorage.rmNotes();
-    LocalStorage.setNotes(JSON.stringify(allNotes));
+    const NoteBookOfTheNote=item.notebook;
+    let getObjectsOfTheNoteBook=JSON.parse(LocalStorage.getNotebooks(NoteBookOfTheNote))
+    if(getObjectsOfTheNoteBook===null){
+      getObjectsOfTheNoteBook=JSON.parse(LocalStorage.getNotes())
+    }
 
-    dispatch({type: 'newNote', notes: allNotes})
+    let removeNote = getObjectsOfTheNoteBook.filter((note) => note.id !== item.id);
+    LocalStorage.rmNoteBook(NoteBookOfTheNote===""?'notes':NoteBookOfTheNote);
+    LocalStorage.set(NoteBookOfTheNote===""?'notes':NoteBookOfTheNote,JSON.stringify(removeNote));
+
+    dispatch({type: 'newNote', notes: removeNote})
   }
 
   function updateNote() {

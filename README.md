@@ -3,7 +3,7 @@
 
 #### Demo link :fire::fire:
 
-`http://note_taking_app_nima.surge.sh/`
+[http://note_taking_app_nima.surge.sh/](http://note_taking_app_nima.surge.sh/)
 
 #### File Structure :fire::fire:
 
