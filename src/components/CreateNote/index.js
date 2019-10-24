@@ -22,6 +22,9 @@ function CreateNote() {
         setLabelWidth(inputLabel.current.offsetWidth);
     }, []);
 
+    /**
+    * handle change inputs
+    **/
     function handleChange(name, event) {
         setState({
             ...state,

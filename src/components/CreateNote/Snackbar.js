@@ -8,7 +8,9 @@ export default function CustomSnackbar(props) {
     const classes = useStyles();
     const {setClose, open: openSnack} = props;
     const [open, setOpen] = React.useState();
-
+    /**
+     * set open/false state to show/hide Snackbar
+    **/
     React.useEffect(() => {
         setOpen(openSnack)
     }, [openSnack])

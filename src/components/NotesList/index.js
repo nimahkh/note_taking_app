@@ -89,7 +89,7 @@ function NotesList() {
     }
 
     /**
-     * Handle Move notes
+     * Handle Move notes to another notebook
     **/
     function handleMoveNotes(e){
       const NoteBookName=e.target.value;

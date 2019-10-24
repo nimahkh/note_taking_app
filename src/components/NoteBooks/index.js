@@ -20,6 +20,9 @@ function NoteBooks() {
     const [activeNote, setActiveNote]= useState('all')
     const [, dispatch] = useStateValue()
 
+    /**
+     * show a list of notes of a notebook and dispatch it into Context
+    **/
     function showNotesOf(Notebook){
         let NoteNextMonth = LocalStorage.getNotebooks('Next Month');
         let University = LocalStorage.getNotebooks('University');
