@@ -12,11 +12,6 @@ import LocalStorage from "../../Utils/localStorage";
 
 function NoteBooks() {
     const classes = useStyles();
-    const [
-        {
-            notes
-        }
-    ] = useStateValue();
     const [activeNote, setActiveNote]= useState('all')
     const [, dispatch] = useStateValue()
 
