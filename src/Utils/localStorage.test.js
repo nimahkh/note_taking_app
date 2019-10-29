@@ -9,14 +9,16 @@ const object = {
     id: 123456789,
     message: "Testi Message",
     category: "Family",
-    title: "Test Title"
+    title: "Test Title",
+    notebook:""
 }
 
 const unExistsObject = {
     id: 123456780,
     message: "Testi Message",
     category: "Family",
-    title: "Test Title"
+    title: "Test Title",
+    notebook:""
 }
 
 const objects = [
@@ -24,12 +26,14 @@ const objects = [
         id: 123456789,
         message: "Testi Message",
         category: "Family",
-        title: "Test Title"
+        title: "Test Title",
+        notebook:""
     }, {
         id: 123456785,
         message: "Second Testi Message",
         category: "work",
-        title: "Second Test Title"
+        title: "Second Test Title",
+        notebook:""
     }
 ]
 
@@ -38,12 +42,14 @@ const HomeNoteBook = [
         id: 23456789,
         message: "Home Message",
         category: "Family",
-        title: "Test Title"
+        title: "Test Title",
+        notebook:""
     }, {
         id: 23456785,
         message: "Second Home Message",
         category: "work",
-        title: "Second Test Title"
+        title: "Second Test Title",
+        notebook:""
     }
 ]
 
