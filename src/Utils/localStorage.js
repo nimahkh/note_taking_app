@@ -1,45 +1,54 @@
 const LocalStorage = {};
 
+LocalStorage.get=(key)=>{
+    return localStorage.getItem(key)
+}
+LocalStorage.setItem=(key, value)=>{
+    return localStorage.setItem(key, value)
+}
+LocalStorage.remove=(key)=>{
+    return localStorage.removeItem(key)
+}
 /**
  * get all notes
  **/
 LocalStorage.getNotes = () => {
-  return localStorage.getItem("notes")
+  return LocalStorage.get("notes")
 }
 
 /**
  * get all notes of notebooks
  **/
 LocalStorage.getNotebooks = (notebook) => {
-  return localStorage.getItem(notebook)
+  return LocalStorage.get(notebook)
 }
 
 /**
  * set a note
  **/
 LocalStorage.set = (key, value) => {
-  localStorage.setItem(key, value)
+  LocalStorage.setItem(key, value)
 }
 
 /**
  * set a group of Notes
  **/
 LocalStorage.setNotes = (value) => {
-  localStorage.setItem("notes", value)
+  LocalStorage.setItem("notes", value)
 }
 
 /**
  * remove Notes
  **/
 LocalStorage.rmNotes = () => {
-  localStorage.removeItem('notes')
+  LocalStorage.remove('notes')
 }
 
 /**
  * remove Notes
  **/
 LocalStorage.rmNoteBook = (notebok) => {
-  localStorage.removeItem(notebok)
+  LocalStorage.remove(notebok)
 }
 
 /**
