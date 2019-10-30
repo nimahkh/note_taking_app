@@ -75,7 +75,7 @@ describe("Test Locastorage functionality", () => {
         //first set the item
         LocalStorage.setNotes(JSON.stringify(object))
         //now check with normal localStorage
-        const insertedLocalStorage = localStorage.getItem('notes');
+        const insertedLocalStorage = LocalStorage.get('notes');
 
         expect(JSON.parse(insertedLocalStorage)).toEqual(object);
     })
@@ -165,5 +165,40 @@ describe("Test Locastorage functionality", () => {
 
         expect(Home).toEqual(HomeNoteBook)
     })
+
+})
+
+describe('Special modes on Notebooks',()=>{
+
+  test("Move note into an unChanged notebook object", () => {
+    const stringifiedJson=JSON.stringify(object);
+    const noteBookName='Home'
+      //first set the item
+      LocalStorage.setNotes(stringifiedJson)
+      //now Move the item into 'Home' notebook
+      LocalStorage.set(noteBookName,stringifiedJson)
+
+      //now fetch NoteBook
+      const HomeList=LocalStorage.getNotebooks(noteBookName);
+      //notebook must be empty, because I dont change notebook object to new object
+      expect(JSON.parse(HomeList).notebook).toEqual('');
+  })
+
+  test("Move note into a changed notebook object", () => {
+    const noteBookName='Home'
+    let newObject=object;
+    newObject.notebook=noteBookName;
+    const stringifiedJson=JSON.stringify(newObject);
+
+      //first set the item
+      LocalStorage.setNotes(stringifiedJson)
+      //now Move the item into 'Home' notebook
+      LocalStorage.set(noteBookName,stringifiedJson)
+
+      //now fetch NoteBook
+      const HomeList=LocalStorage.getNotebooks(noteBookName);
+      //notebook must be empty, because I dont change notebook object to new object
+      expect(JSON.parse(HomeList).notebook).toEqual(noteBookName);
+  })
 
 })
