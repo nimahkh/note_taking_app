@@ -43,13 +43,13 @@ const HomeNoteBook = [
         message: "Home Message",
         category: "Family",
         title: "Test Title",
-        notebook:""
+        notebook:"Home"
     }, {
         id: 23456785,
         message: "Second Home Message",
         category: "work",
         title: "Second Test Title",
-        notebook:""
+        notebook:"Home"
     }
 ]
 
@@ -58,12 +58,14 @@ const UniversityNoteBook = [
         id: 23456789,
         message: "University Message",
         category: "Family",
-        title: "Test Title"
+        title: "Test Title",
+        notebook: "University"
     }, {
         id: 23456785,
         message: "Second University Message",
         category: "work",
-        title: "Second Test Title"
+        title: "Second Test Title",
+        notebook: "University"
     }
 ]
 
@@ -200,5 +202,28 @@ describe('Special modes on Notebooks',()=>{
       //notebook must be empty, because I dont change notebook object to new object
       expect(JSON.parse(HomeList).notebook).toEqual(noteBookName);
   })
+
+  test("Delete From notebook", () => {
+    const noteBookName='Home'
+    const stringifiedJson=JSON.stringify(HomeNoteBook);
+
+      //first set the item
+      LocalStorage.setNotes(stringifiedJson)
+      //now Move the item into 'Home' notebook
+      LocalStorage.set(noteBookName,stringifiedJson)
+      let getObjectsOfTheNoteBook=JSON.parse(LocalStorage.getNotebooks(noteBookName))
+
+      //delete id 23456789
+      const item= LocalStorage.findId(23456789)[0]
+      //now remove NoteBook
+      let removeNote = getObjectsOfTheNoteBook.filter((note) => note.id !== item.id);
+      LocalStorage.rmNoteBook(noteBookName);
+      LocalStorage.set(noteBookName,JSON.stringify(removeNote));
+
+      //notebook must be empty, because I dont change notebook object to new object
+      expect(removeNote.length).toEqual(1);
+      expect(removeNote[0].id).toEqual(23456785);
+  })
+
 
 })
