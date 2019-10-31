@@ -3,7 +3,7 @@ const LocalStorage = {};
 LocalStorage.get=(key)=>{
     return localStorage.getItem(key)
 }
-LocalStorage.setItem=(key, value)=>{
+LocalStorage.set=(key, value)=>{
     return localStorage.setItem(key, value)
 }
 LocalStorage.remove=(key)=>{
@@ -24,17 +24,10 @@ LocalStorage.getNotebooks = (notebook) => {
 }
 
 /**
- * set a note
- **/
-LocalStorage.set = (key, value) => {
-  LocalStorage.setItem(key, value)
-}
-
-/**
  * set a group of Notes
  **/
 LocalStorage.setNotes = (value) => {
-  LocalStorage.setItem("notes", value)
+  LocalStorage.set("notes", value)
 }
 
 /**
