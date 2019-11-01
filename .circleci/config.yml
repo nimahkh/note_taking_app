@@ -25,3 +25,5 @@ jobs:
 
       # run tests!
       - run: npm run test
+
+      - deploy : npm i -g surge && npm run build && surge ./build note_taking_app.surge.sh
