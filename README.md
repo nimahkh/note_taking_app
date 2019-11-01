@@ -1,6 +1,8 @@
 
 ## Note Taking App - React
 
+[![Build Status](https://travis-ci.org/nimahkh/note_taking_app.svg?branch=master)](https://travis-ci.org/nimahkh/note_taking_app)
+
 #### Demo link :fire::fire:
 
 [http://note_taking_app_nima.surge.sh/](http://note_taking_app_nima.surge.sh/)
