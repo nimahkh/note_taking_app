@@ -1,16 +1,21 @@
-orbs:
-  react: "thefrontside/react@dev:alpha"
-version: 2.1
-workflows:
-  push:
-    jobs:
-      - react/install
-      - react/eslint:
-          requires:
-            - react/install
-      - react/test:
-          requires:
-            - react/install
-      - react/coverage:
-          requires:
-            - react/install
+version: 2.1jobs:
+  build:
+    docker:
+      - image: circleci/node:12.9.1-browsers
+
+    working_directory: ~/reposteps:
+      - checkout
+
+      - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+        paths:
+          - node_modules
+        key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: yarn test
