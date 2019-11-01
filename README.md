@@ -120,3 +120,31 @@ run the command below:
 `docker run -p 8080:80 nta-react`
 
 - open the project on `localhost:8080`
+
+### CI/CD
+
+#### Travis CI :v:
+
+Configuration of Travis CI/CD is inside of .travis.yml file.
+
+```
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - node_modules
+script:
+  - npm test
+  - npm run build
+deploy:
+  provider: surge
+  skip_cleanup: true
+  domain: note_taking_app_nima.surge.sh
+  project: ./build/
+on:
+  branch: master
+
+```
+
+Script block is running the tests at first, then building the project. Deploy section is deploying the project on `surge.sh` domain from `build` folder.
