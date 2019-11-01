@@ -1,4 +1,4 @@
-version: 2.1jobs:
+version: 2.1:
   build:
     docker:
       - image: circleci/node:12.9.1-browsers
