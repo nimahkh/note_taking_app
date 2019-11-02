@@ -1,4 +1,3 @@
-
 ## Note Taking App - React
 
 [![Build Status](https://travis-ci.org/nimahkh/note_taking_app.svg?branch=master)](https://travis-ci.org/nimahkh/note_taking_app)
@@ -52,15 +51,15 @@ so, `statemanagement` and `Utils` should be on the `src` root.
 
 There are many UI kits for styling to choose, but I recommend using`Material-UI` because of the JSS and rendering performances in new hooks features. :sunglasses:
 
--  ##### Components :heavy_check_mark:
+- ##### Components :heavy_check_mark:
 
 Components are following the `First Feature` structure. experimentaly, this structure helps to organizing your application and develop it with a team of React developers
 
--  ##### State management :heavy_check_mark:
+- ##### State management :heavy_check_mark:
 
 The state management in this project is, Context API.
 
--  ##### Importing components :heavy_check_mark:
+- ##### Importing components :heavy_check_mark:
 
 Main components name in their folder is index.js. so you can import it like below :
 
@@ -153,7 +152,7 @@ Script block is running the tests at first, then building the project. Deploy se
 
 #### CircleCI :v::v:
 
-Configuration of Circle CI is  inside of .circleci folder.
+Configuration of Circle CI is inside of .circleci folder.
 
 ```
 version: 2

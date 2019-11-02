@@ -1,47 +1,47 @@
-import React from "react"
-import {StateProvider} from "../statemanagement"
+import React from "react";
+import { StateProvider } from "../statemanagement";
 
 export function clearLocaStorage() {
-    localStorage.clear()
+  localStorage.clear();
 }
 
 export function IncludingProvider(props) {
-    const initialState = {
-        notes: [],
-        modal: false,
-        edit: null,
-        show: null,
-        showModal: false,
-    };
+  const initialState = {
+    notes: [],
+    modal: false,
+    edit: null,
+    show: null,
+    showModal: false
+  };
 
-    const reducer = (state, action) => {
-        switch (action.type) {
-            case 'newNote':
-                return {
-                    ...state,
-                    notes: action.notes
-                };
-            case 'openModal':
-                return {
-                    ...state,
-                    modal: action.modal,
-                    edit: action.edit
-                };
-            case 'showMessage':
-                return {
-                    ...state,
-                    showModal: action.showModal,
-                    show: action.show
-                };
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "newNote":
+        return {
+          ...state,
+          notes: action.notes
+        };
+      case "openModal":
+        return {
+          ...state,
+          modal: action.modal,
+          edit: action.edit
+        };
+      case "showMessage":
+        return {
+          ...state,
+          showModal: action.showModal,
+          show: action.show
+        };
 
-            default:
-                return state;
-        }
-    };
+      default:
+        return state;
+    }
+  };
 
-    return (
-        <StateProvider initialState={initialState} reducer={reducer}>
-            {props.children}
-        </StateProvider>
-    )
+  return (
+    <StateProvider initialState={initialState} reducer={reducer}>
+      {props.children}
+    </StateProvider>
+  );
 }

@@ -1,10 +1,12 @@
-import React from 'react';
-import MainComponent from "./components/MainComponent"
+import React from "react";
+import MainComponent from "./components/MainComponent";
 
 function App() {
-  return (<div className="App">
-  <MainComponent/>
-  </div>);
+  return (
+    <div className="App">
+      <MainComponent />
+    </div>
+  );
 }
 
 export default App;
