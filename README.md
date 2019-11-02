@@ -150,3 +150,37 @@ on:
 ```
 
 Script block is running the tests at first, then building the project. Deploy section is deploying the project on `surge.sh` domain from `build` folder.
+
+#### CircleCI :v::v:
+
+Configuration of Circle CI is  inside of .circleci folder.
+
+```
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12.13.0
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: npm run test
+```
