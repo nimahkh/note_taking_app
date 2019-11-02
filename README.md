@@ -3,6 +3,8 @@
 
 [![Build Status](https://travis-ci.org/nimahkh/note_taking_app.svg?branch=master)](https://travis-ci.org/nimahkh/note_taking_app)
 
+[![CircleCI](https://circleci.com/gh/nimahkh/note_taking_app.svg?style=svg)](https://circleci.com/gh/nimahkh/note_taking_app)
+
 #### Demo link :fire::fire:
 
 [http://note_taking_app_nima.surge.sh/](http://note_taking_app_nima.surge.sh/)
