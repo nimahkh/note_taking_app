@@ -4,6 +4,8 @@
 
 [![CircleCI](https://circleci.com/gh/nimahkh/note_taking_app.svg?style=svg)](https://circleci.com/gh/nimahkh/note_taking_app)
 
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 #### Demo link :fire::fire:
 
 [http://note_taking_app_nima.surge.sh/](http://note_taking_app_nima.surge.sh/)
