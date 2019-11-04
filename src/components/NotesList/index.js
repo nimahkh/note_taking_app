@@ -28,7 +28,7 @@ function NotesList() {
   function searchFor(keyword, key, array) {
     const toSearch = keyword.toLowerCase();
     return array.filter(data => {
-      return data[key].toLowerCase().includes(toSearch);
+      return data[key]!==undefined && data[key].toLowerCase().includes(toSearch)
     });
   }
 
